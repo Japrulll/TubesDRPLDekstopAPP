@@ -20,6 +20,7 @@ public class DatabaseConnection {
         } 
         catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Gagal terhubung ke database. Error: " + e.getMessage());
         }
         return databaselink;
     }

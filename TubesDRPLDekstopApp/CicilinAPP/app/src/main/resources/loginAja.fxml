@@ -29,37 +29,37 @@
             </DropShadow>
          </effect>
       </Rectangle>
-      <ImageView fitHeight="47.0" fitWidth="149.0" layoutX="239.0" layoutY="98.0">
+      <ImageView fitHeight="60.0" fitWidth="162.0" layoutX="219.0" layoutY="99.0">
          <image>
             <Image url="@images/logoImage.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="212.0" layoutY="137.0" prefWidth="176.0">
+      <AnchorPane layoutX="202.0" layoutY="159.0" maxWidth="0.0" prefHeight="70.0" prefWidth="196.0">
          <children>
-            <TextField fx:id="emailTextField" layoutX="25.0" layoutY="34.0" promptText="E-Mail" style="-fx-background-radius: 10; -fx-background-color: #eee; -fx-background-insets: 0; -fx-border-color: red; -fx-border-width: 2;" />
-            <PasswordField fx:id="passwordPasswordField" layoutX="26.0" layoutY="70.0" promptText="Password" style="-fx-background-radius: 10; -fx-background-color: #eee; -fx-background-insets: 0; -fx-border-color: red; -fx-border-width: 2;" />
-            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="2.0" layoutY="37.0">
+            <TextField fx:id="emailTextField" layoutX="34.0" layoutY="35.0" promptText="E-Mail" style="-fx-background-radius: 10; -fx-background-color: #eee; -fx-background-insets: 0; -fx-border-color: transparent;" />
+            <PasswordField fx:id="passwordPasswordField" layoutX="34.0" layoutY="69.0" promptText="Password" style="-fx-background-radius: 10; -fx-background-color: #eee; -fx-background-insets: 0; -fx-border-color: transparent;" />
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="10.0" layoutY="38.0">
                <image>
                   <Image url="@images/emailIcon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="3.0" layoutY="73.0">
+            <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="11.0" layoutY="76.0">
                <image>
                   <Image url="@images/passwordIcon.png" />
                </image>
             </ImageView>
-            <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="-13.0" layoutY="14.0" prefHeight="17.0" prefWidth="216.0" textFill="RED">
+            <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="-10.0" layoutY="6.0" prefHeight="17.0" prefWidth="216.0" textFill="RED">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="loginButton1" layoutX="275.0" layoutY="292.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10; -fx-background-color: #037EF7;" text="Login" textFill="WHITE">
+      <Button fx:id="loginButton1" layoutX="262.0" layoutY="291.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10; -fx-background-color: #037EF7;" text="Login" textFill="WHITE">
          <effect>
             <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
-      <Hyperlink layoutX="250.0" layoutY="242.0" onAction="#handleForPass" text="Forgot Password?" />
+      <Hyperlink layoutX="247.0" layoutY="259.0" onAction="#handleForPass" text="Forgot Password?" />
    </children>
 </AnchorPane>
