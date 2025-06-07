@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginController" >
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
@@ -26,7 +26,7 @@
             </DropShadow>
          </effect>
       </Rectangle>
-      <Button layoutX="262.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10;" text="Register" />
+      <Button layoutX="212.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10;" text="Register" />
       <ImageView fitHeight="39.0" fitWidth="107.0" layoutX="247.0" layoutY="91.0">
          <image>
             <Image url="@images/logoImage.png" />
@@ -60,5 +60,12 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <Button fx:id="loginButton" layoutX="312.0" layoutY="300.0" mnemonicParsing="false"
+        prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10; -fx-background-color: #037EF7;"
+        text="Login" textFill="WHITE" onAction="#handleLogin">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

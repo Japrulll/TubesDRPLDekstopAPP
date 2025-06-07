@@ -7,15 +7,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/loginFRPL.fxml"));
-        stage.setTitle("CICILIN");
-        stage.setScene(new Scene(root));
-        stage.show();
+        primaryStage.setTitle("CICILIN");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
     }
-
+    public void loginScene(Stage loginStage) throws Exception {
+        loginStage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("/loginAja.fxml"));
+        loginStage.setTitle("CICILIN");
+        loginStage.setScene(new Scene(root, 600, 400));
+        loginStage.show();
+    }
     public static void main(String[] args) {
         launch(args);
     }
