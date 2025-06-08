@@ -6,3 +6,91 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DashboardController">
+   <children>
+      <AnchorPane layoutX="45.0" layoutY="42.0" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox layoutY="-15.0" prefHeight="100.0" prefWidth="200.0" />
+            <ImageView fitHeight="100.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+               <image>
+                  <Image url="@../../../../../../../../../Pictures/Screenshots/Screenshot%202025-06-08%20193240.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER_RIGHT" layoutX="185.0" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Manager" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Pembayaran" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Admin" />
+                  <Button fx:id="logoutButton" mnemonicParsing="false" style="-fx-background-color: black;" text="Logout" textFill="WHITE" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label text="Dashboard Nasabah" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <VBox layoutX="20.0" layoutY="74.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="74.0">
+               <children>
+                  <VBox prefHeight="140.0" prefWidth="100.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                     <children>
+                        <Label text="Apa itu CICILIN?">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="36.0" prefWidth="540.0" text="          CICILIN (Cerdas Kelola Cicilan Leasing Indonesia) adalah aplikasi web yang dirancang untuk membantu PT Mitra Leasing dalam mengelola piutang dan cicilan pelanggan secara terpusat dan real-time. Dengan sistem basis data terintegrasi, seluruh cabang dapat memantau dan mengelola data nasabah tanpa perlu sistem penyimpanan terpisah." textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <VBox prefWidth="100.0" />
+                        <Label prefHeight="29.0" prefWidth="540.0" text="          Fitur utama CICILIN meliputi : Dashboard real-time untuk melihat status pembayaran nasabah, Laporan aging piutang &amp; prediksi NPL, Notifikasi keterlambatan pembayaran, Akses admin per cabang, dan Pengambilan keputusan kredit lebih cepat &amp; efisien." textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="37.0" prefWidth="540.0" text="          CICILIN (Cerdas Kelola Cicilan Leasing Indonesia) adalah aplikasi web yang dirancang untuk membantu PT Mitra Leasing dalam mengelola piutang dan cicilan pelanggan secara terpusat dan real-time. Dengan sistem basis data terintegrasi, seluruh cabang dapat memantau dan mengelola data nasabah tanpa perlu sistem penyimpanan terpisah." textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="40.0" prefWidth="560.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Notifikasi Jatuh Tempo">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+                           <children>
+                              <Label fx:id="notificationAmountLabel" text="Rp. 5.041.325" />
+                              <Label text="|" />
+                              <Label fx:id="notificationExpiredLabel" alignment="CENTER_RIGHT" text="19 Agustus 2030" />
+                           </children>
+                        </HBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
