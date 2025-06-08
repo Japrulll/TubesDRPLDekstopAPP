@@ -55,7 +55,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="loginButton1" layoutX="262.0" layoutY="291.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10; -fx-background-color: #037EF7;" text="Login" textFill="WHITE">
+      <Button fx:id="loginButton" layoutX="262.0" layoutY="291.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10; -fx-background-color: #037EF7;" text="Login" textFill="WHITE">
          <effect>
             <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
          </effect>
