@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import javafx.scene.Parent;
@@ -23,6 +24,8 @@ public class RegisterController {
     private PasswordField passwordPasswordField;
     @FXML
     private Label registerMessageLabel;
+    @FXML
+    private ImageView logoImageView;
 
     @FXML
     private void handleLogin(ActionEvent e) throws Exception {

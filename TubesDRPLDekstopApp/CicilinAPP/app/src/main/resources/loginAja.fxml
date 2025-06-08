@@ -29,7 +29,7 @@
             </DropShadow>
          </effect>
       </Rectangle>
-      <ImageView fitHeight="60.0" fitWidth="162.0" layoutX="219.0" layoutY="99.0">
+      <ImageView fx:id="logoImageView" fitHeight="60.0" fitWidth="162.0" layoutX="219.0" layoutY="99.0">
          <image>
             <Image url="@images/logoImage.png" />
          </image>
@@ -61,5 +61,6 @@
          </effect>
       </Button>
       <Hyperlink layoutX="247.0" layoutY="259.0" onAction="#handleForPass" text="Forgot Password?" />
+      <Button fx:id="backLoginButton" layoutX="219.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="60.0" prefWidth="162.0" style="-fx-background-color: transparent;" />
    </children>
 </AnchorPane>
