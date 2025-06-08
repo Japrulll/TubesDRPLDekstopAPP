@@ -71,9 +71,27 @@ public class ForPassController {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                // Artinya ada user dengan email & password yg cocok
+                // Ambil user id/email
+                String userId = resultSet.getString("email"); // atau "email" jika ingin pakai email
                 loginMessageLabel.setText("Login successful!");
-                // redirect ke main scene
+
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+                    Parent dashboardRoot = loader.load();
+
+                    // Ambil controller dan set user id/email
+                    DashboardController dashboardController = loader.getController();
+                    dashboardController.setCurrentUser(userId);
+
+                    // Ganti scene ke dashboard
+                    Stage stage = (Stage) loginMessageLabel.getScene().getWindow();
+                    stage.setScene(new Scene(dashboardRoot, 600, 400));
+                    stage.setTitle("Dashboard CICILIN");
+                    stage.show();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    loginMessageLabel.setText("Gagal membuka dashboard.");
+                }
             } else {
                 loginMessageLabel.setText("Invalid Login! Try Again...");
             }
