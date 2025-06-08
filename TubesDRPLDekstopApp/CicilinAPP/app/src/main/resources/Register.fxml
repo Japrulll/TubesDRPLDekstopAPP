@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.RegisterController">
+    <children>
+        <VBox spacing="10.0" alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+            <Label text="Register New User" style="-fx-font-size: 18px;"/>
+            <TextField fx:id="phoneNumberTextField" promptText="Phone Number"/>
+            <TextField fx:id="emailTextField" promptText="Email"/>
+            <TextField fx:id="fullnameTextField" promptText="Full Name"/>
+            <PasswordField fx:id="passwordPasswordField" promptText="Password"/>
+            <Button text="Register" onAction="#handleRegisterButtonAction"/>
+            <Label fx:id="registerMessageLabel"/>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -31,6 +31,15 @@ public class ForPassController {
     }
 
     @FXML
+    private void handleGoToRegister(ActionEvent event) throws Exception {
+        Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/Register.fxml"));
+        stage.setScene(new Scene(root, 600, 400));
+        stage.setTitle("Register - CICILIN");
+        stage.show();
+    }
+
+    @FXML
     private Label loginMessageLabel;
 
     public void loginButtonOnAction(ActionEvent e) {
@@ -69,6 +78,30 @@ public class ForPassController {
         } catch (Exception e) {
             e.printStackTrace();
             loginMessageLabel.setText("Database error occurred.");
+        }
+    }
+    public void registerUser(String notelp, String email, String fullname, String password) {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        String insertUser = "INSERT INTO \"User\" (notelp, email, fullname, password) VALUES (?, ?, ?, ?)";
+
+        try {
+            PreparedStatement preparedStatement = connectDB.prepareStatement(insertUser);
+            preparedStatement.setLong(1, Long.parseLong(notelp.trim())); // notelp kamu INT8 → pakai Long
+            preparedStatement.setString(2, email.trim());
+            preparedStatement.setString(3, fullname.trim());
+            preparedStatement.setString(4, password.trim());
+
+            preparedStatement.executeUpdate();
+            System.out.println("✅ User registered successfully!");
+
+        } catch (Exception e) {
+            if (e.getMessage().contains("duplicate key value")) {
+                System.err.println("❌ User already exists (duplicate key)!");
+            } else {
+                e.printStackTrace();
+            }
         }
     }
 }

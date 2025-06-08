@@ -19,4 +19,13 @@ public class LoginController {
         stage.show();
     }
 
+    @FXML
+    private void handleGoToRegister(ActionEvent event) throws Exception {
+        Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/Register.fxml"));
+        stage.setScene(new Scene(root, 600, 400));
+        stage.setTitle("Register - CICILIN");
+        stage.show();
+    }
+
 }
