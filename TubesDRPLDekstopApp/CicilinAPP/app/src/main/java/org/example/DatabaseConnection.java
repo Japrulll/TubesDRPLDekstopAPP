@@ -16,12 +16,11 @@ public class DatabaseConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
             databaselink = DriverManager.getConnection(url, databaseUser, databasePassword);
             System.out.println("database terhubung boy!");
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
             System.err.println("Gagal terhubung ke database. Error: " + e.getMessage());
         }
         return databaselink;
-    }
-    
+    }   
 }

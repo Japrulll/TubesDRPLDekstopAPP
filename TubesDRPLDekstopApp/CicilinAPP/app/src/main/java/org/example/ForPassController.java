@@ -34,7 +34,7 @@ public class ForPassController {
 
     public void loginButtonOnAction(ActionEvent e) {
         if (emailTextField.getText().isBlank() == false && passwordPasswordField.getText().isBlank() == false) {
-            //kalo semua kosong
+            // kalo semua kosong
             // loginMessageLabel.setText("You Try To Login!");
             validateLogin();
         } else {
@@ -61,9 +61,8 @@ public class ForPassController {
                     loginMessageLabel.setText("Invalid Login! Try Again...");
                 }
             }
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
 }
