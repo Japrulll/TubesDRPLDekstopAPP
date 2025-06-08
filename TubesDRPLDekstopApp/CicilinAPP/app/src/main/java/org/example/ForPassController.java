@@ -2,6 +2,7 @@ package org.example;
 
 import java.sql.Statement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javafx.event.ActionEvent;
@@ -43,26 +44,31 @@ public class ForPassController {
         }
     }
 
-    public void validateLogin(){
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
+    public void validateLogin() {
+    DatabaseConnection connectNow = new DatabaseConnection();
+    Connection connectDB = connectNow.getConnection();
 
-        String verifyLogin = "SELECT count(1) FROM UserAcc WHERE Email = '" + emailTextField.getText() + "' AND password = '" + passwordPasswordField.getText() + "'";
+    String verifyLogin = "SELECT * FROM \"User\" WHERE email = ? AND password = ?";
 
-        try{
-            Statement statement = connectDB.createStatement();
-            ResultSet queryResult = statement.executeQuery(verifyLogin);
+    try {
+        // Pakai PreparedStatement supaya aman
+        PreparedStatement preparedStatement = connectDB.prepareStatement(verifyLogin);
+        preparedStatement.setString(1, emailTextField.getText().trim());
+        preparedStatement.setString(2, passwordPasswordField.getText().trim());
 
-            while (queryResult.next()) {
-                if (queryResult.getInt(1) == 1) {
-                    loginMessageLabel.setText("Login successful!");
-                    // Redirect to the next scene or perform further actions
-                } else {
-                    loginMessageLabel.setText("Invalid Login! Try Again...");
-                }
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            // Artinya ada user dengan email & password yg cocok
+            loginMessageLabel.setText("Login successful!");
+            // TODO: redirect ke main scene
+        } else {
+            loginMessageLabel.setText("Invalid Login! Try Again...");
         }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        loginMessageLabel.setText("Database error occurred.");
     }
+}
 }
