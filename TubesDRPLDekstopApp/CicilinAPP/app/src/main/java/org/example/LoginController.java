@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,13 +19,12 @@ public class LoginController {
 
     @FXML
     private TextField emailTextField;
-
     @FXML
     private PasswordField passwordPasswordField;
-
     @FXML
     private Label loginMessageLabel;
-
+    @FXML
+    private Button loginButton;
     @FXML
     public void loginButtonOnAction(ActionEvent e) {
         if (emailTextField.getText().isBlank() || passwordPasswordField.getText().isBlank()) {
@@ -50,7 +50,7 @@ public class LoginController {
                     try (ResultSet resultSet = preparedStatement.executeQuery()) {
                         if (resultSet.next()) {
                             // Jika query menghasilkan baris, berarti email dan password cocok
-                            return resultSet.getString("email"); // Berhasil, kembalikan User ID
+                            return resultSet.getString("id"); // Berhasil, kembalikan User ID
                         }
                     }
                 }

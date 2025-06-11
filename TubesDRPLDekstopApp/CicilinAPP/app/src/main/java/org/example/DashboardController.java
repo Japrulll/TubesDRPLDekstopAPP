@@ -3,16 +3,9 @@ package org.example;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,17 +18,17 @@ import java.util.Locale;
 import java.util.Map;
 
 public class DashboardController {
-
     @FXML
     private Label notificationAmountLabel;
     @FXML
     private Label notificationExpiredLabel;
     @FXML
-    private Button logoutButton;
+    public Button logoutButton;
+    @FXML
+    public Button pembayaranButton;
+    @FXML
+    private String currentUserEmail;
 
-    private String currentUserEmail; // Variabel diubah untuk menampung email
-
-    // Method ini sekarang menerima email
     public void setCurrentUser(String email) {
         this.currentUserEmail = email;
         System.out.println("Dashboard for user: " + this.currentUserEmail);
@@ -127,16 +120,29 @@ public class DashboardController {
 
         new Thread(dataLoaderTask).start();
     }
-
     @FXML
-    private void handleLogout(ActionEvent event) {
+    public void handleLogOut(ActionEvent event) {   
         try {
-            Parent loginRoot = FXMLLoader.load(getClass().getResource("/loginFRPL.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(loginRoot));
-            stage.setTitle("CICILIN Login");
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/loginAja.fxml"));
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 600, 400));
+            stage.setTitle("CICILIN - Logout");
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void handlePembayaran(ActionEvent event) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/pembayaran.fxml"));
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 600, 400));
+            stage.setTitle("CICILIN - Login");
+            stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
