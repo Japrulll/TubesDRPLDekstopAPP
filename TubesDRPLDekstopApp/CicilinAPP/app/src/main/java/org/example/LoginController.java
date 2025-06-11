@@ -50,7 +50,7 @@ public class LoginController {
                     try (ResultSet resultSet = preparedStatement.executeQuery()) {
                         if (resultSet.next()) {
                             // Jika query menghasilkan baris, berarti email dan password cocok
-                            return resultSet.getString("id"); // Berhasil, kembalikan User ID
+                            return resultSet.getString("email"); // Berhasil, kembalikan User ID
                         }
                     }
                 }
