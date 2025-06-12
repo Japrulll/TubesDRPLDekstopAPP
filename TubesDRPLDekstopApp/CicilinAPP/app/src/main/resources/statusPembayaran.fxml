@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -30,12 +31,64 @@
       </AnchorPane>
       <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label text="Status Pembayaran" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <Label layoutX="20.0" layoutY="14.0" prefWidth="187.0" text="Status Pembayaran" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <VBox layoutX="20.0" layoutY="74.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="74.0" />
+            <VBox layoutX="20.0" layoutY="76.0" prefHeight="250.0" prefWidth="550.0" spacing="15.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="76.0">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="550.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan I">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="amountCicilan1" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
+                        <Label fx:id="dueDateCicilan1" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="550.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan II">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="amountCicilan2" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
+                        <Label fx:id="dueDateCicilan2" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="550.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan III">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="amountCicilan3" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
+                        <Label fx:id="dueDateCicilan3" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="550.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan IV">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="amountCicilan4" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
+                        <Label fx:id="dueDateCicilan4" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+               </children></VBox>
          </children>
       </AnchorPane>
    </children>
