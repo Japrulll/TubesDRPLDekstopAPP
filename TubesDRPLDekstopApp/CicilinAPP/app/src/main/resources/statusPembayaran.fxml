@@ -29,7 +29,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9FC7EF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
             <Label layoutX="20.0" layoutY="14.0" prefWidth="187.0" text="Status Pembayaran" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="14.0">
                <font>

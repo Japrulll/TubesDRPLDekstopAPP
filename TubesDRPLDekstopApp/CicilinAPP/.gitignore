@@ -1,27 +1,36 @@
-# Java build files
-*.class
+# # # Build & Dependencies # # #
+
+# Abaikan folder cache Gradle
+.gradle/
+
+# Abaikan seluruh folder output build
+/build/
+
+# Abaikan file JAR, WAR, EAR yang mungkin dihasilkan
 *.jar
 *.war
 *.ear
 
-# Build output folders (e.g. Maven, Gradle, IDEs)
-bin/
-out/
-build/
-target/
+# # # IDE & Editor # # #
 
-# IDE-specific folders
-.vscode/
+# Abaikan folder konfigurasi IntelliJ
 .idea/
 *.iml
 
-# OS-specific
+# Abaikan folder konfigurasi VS Code
+.vscode/
+
+# # # File Sistem Operasi & Log # # #
+
+# File thumbnail dan metadata macOS & Windows
 .DS_Store
 Thumbs.db
 
-# Logs and temp files
+# File log dan temporary
 *.log
 *.tmp
 
-# Supaya folder hasil compile dari project-mu tidak di-track
-TubesDRPLDekstopApp/CicilinAPP/app/bin/
+# # # File Sensitif # # #
+
+# Abaikan file variabel lingkungan (environment)
+.env

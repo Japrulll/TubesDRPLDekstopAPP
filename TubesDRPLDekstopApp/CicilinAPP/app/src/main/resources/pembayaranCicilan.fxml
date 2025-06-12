@@ -34,7 +34,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9FC7EF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
             <Label text="Pembayaran Cicilan" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                <font>
