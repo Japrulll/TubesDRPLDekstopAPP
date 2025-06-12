@@ -37,7 +37,7 @@ public class ForgotPasswordController {
     @FXML
     private void handleRegister(ActionEvent e) throws Exception {
         Stage stage = (Stage)((javafx.scene.Node)e.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/loginAja.fxml"));
         stage.setScene(new Scene(root, 600, 400));
         stage.setTitle("CICILIN");
         stage.show();

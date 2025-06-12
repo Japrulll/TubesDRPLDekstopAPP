@@ -58,11 +58,12 @@ public class DashboardController {
             @Override
             protected Map<String, Object> call() throws Exception {
                 // Query untuk mendapatkan cicilan terdekat yang BELUM LUNAS
+                // Berdasarkan struktur database: User -> Pinjaman -> Cicilan
                 String sql = "SELECT c.jumlah, c.tenggat_waktu " +
                              "FROM \"Cicilan\" c " +
                              "JOIN \"Pinjaman\" p ON c.id_pinjaman = p.id_pinjaman " +
                              "JOIN \"User\" u ON p.id_user = u.id_user " +
-                             "WHERE u.email = ? AND c.status_cicilan = false " +
+                             "WHERE u.email = ? AND c.status_cicilan = true " +
                              "ORDER BY c.tenggat_waktu ASC LIMIT 1";
 
                 DatabaseConnection db = new DatabaseConnection();
@@ -95,12 +96,21 @@ public class DashboardController {
                 // Format data untuk ditampilkan
                 Locale indonesia = new Locale("id", "ID");
                 NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(indonesia);
+                
+                // Format tanggal dalam bahasa Indonesia
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMMM yyyy", indonesia);
 
+                // Set text dengan format yang sesuai
                 notificationAmountLabel.setText(formatRupiah.format(amount));
                 notificationDueDateLabel.setText(dateFormat.format(dueDate));
 
                 // Tampilkan kembali kotak notifikasi
+                notificationBox.setVisible(true);
+                notificationBox.setManaged(true);
+            } else {
+                // Jika tidak ada cicilan yang perlu dibayar
+                notificationAmountLabel.setText("Tidak ada pembayaran mendatang");
+                notificationDueDateLabel.setText("");
                 notificationBox.setVisible(true);
                 notificationBox.setManaged(true);
             }
@@ -109,7 +119,7 @@ public class DashboardController {
         task.setOnFailed(e -> {
             task.getException().printStackTrace();
             notificationAmountLabel.setText("Gagal memuat data");
-            notificationDueDateLabel.setText("");
+            notificationDueDateLabel.setText("Coba lagi nanti");
             notificationBox.setVisible(true);
             notificationBox.setManaged(true);
         });
