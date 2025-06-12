@@ -103,7 +103,7 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="notificationDueDateLabel" text="Memuat...">
+                                        <Label fx:id="notificationExpiredLabel" text="Memuat...">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>
