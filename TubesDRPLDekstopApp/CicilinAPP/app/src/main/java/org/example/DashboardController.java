@@ -25,7 +25,7 @@ public class DashboardController {
     @FXML
     public Button logoutButton;
     @FXML
-    public Button pembayaranButton;
+    private Button pembayaranButton;
     @FXML
     private String currentUserEmail;
 
@@ -45,49 +45,51 @@ public class DashboardController {
                 DatabaseConnection connectNow = new DatabaseConnection();
                 Integer userId = null;
 
-                // LANGKAH 1: Cari ID pengguna (id_user) berdasarkan email
+                // LANGKAH 1: Cari id_user berdasarkan email user yang login
                 String findIdSql = "SELECT id_user FROM \"User\" WHERE email = ?";
-                try (Connection conn = connectNow.getConnection();
-                     PreparedStatement ps = conn.prepareStatement(findIdSql)) {
-                    
-                    ps.setString(1, currentUserEmail); // Gunakan email yang diterima
-                    
-                    try (ResultSet rs = ps.executeQuery()) {
-                        if (rs.next()) {
-                            userId = rs.getInt("id_user"); // Dapatkan ID numeriknya
-                        }
+                try (
+                    Connection conn = connectNow.getConnection();
+                    PreparedStatement ps = conn.prepareStatement(findIdSql)
+                ) {
+                    ps.setString(1, currentUserEmail);
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        userId = rs.getInt("id_user");
                     }
+                    rs.close();
                 }
-                
-                // Jika ID pengguna ditemukan, lanjutkan ke langkah 2
-                if (userId != null) {
-                    // LANGKAH 2: Cari data tagihan berdasarkan ID pengguna (userId)
-                    String paymentSql = "SELECT jumlah_tagihan, tenggat_waktu FROM \"Payment\" WHERE id_user = ? AND status_pembayaran = false ORDER BY tenggat_waktu ASC LIMIT 1";
-                    try (Connection conn = connectNow.getConnection();
-                         PreparedStatement ps = conn.prepareStatement(paymentSql)) {
-                        
-                        ps.setInt(1, userId); // Gunakan ID numerik yang sudah didapat
-                        
-                        try (ResultSet rs = ps.executeQuery()) {
-                            if (rs.next()) {
-                                BigDecimal amount = rs.getBigDecimal("jumlah_tagihan");
-                                LocalDate dueDate = rs.getDate("tenggat_waktu").toLocalDate();
 
-                                Map<String, Object> result = new HashMap<>();
-                                result.put("amount", amount);
-                                result.put("dueDate", dueDate);
-                                return result; // Kembalikan data tagihan
-                            }
+                // LANGKAH 2: Jika user ditemukan, ambil cicilan milik user tsb lewat join ke Pinjaman
+                if (userId != null) {
+                    String cicilanSql =
+                        "SELECT c.jumlah, c.tenggat_waktu " +
+                        "FROM \"Cicilan\" c " +
+                        "JOIN \"Pinjaman\" p ON c.id_pinjaman = p.id_pinjaman " +
+                        "WHERE p.id_user = ? AND c.status_cicilan = false " +
+                        "ORDER BY c.tenggat_waktu ASC LIMIT 1";
+                    try (
+                        Connection conn = connectNow.getConnection();
+                        PreparedStatement ps = conn.prepareStatement(cicilanSql)
+                    ) {
+                        ps.setInt(1, userId);
+                        ResultSet rs = ps.executeQuery();
+                        if (rs.next()) {
+                            BigDecimal amount = rs.getBigDecimal("jumlah");
+                            LocalDate dueDate = rs.getDate("tenggat_waktu").toLocalDate();
+
+                            Map<String, Object> result = new HashMap<>();
+                            result.put("amount", amount);
+                            result.put("dueDate", dueDate);
+                            rs.close();
+                            return result;
                         }
+                        rs.close();
                     }
                 }
-                
-                // Kembalikan null jika user id tidak ditemukan atau tidak ada tagihan
                 return null;
             }
         };
 
-        // Bagian setOnSucceeded dan setOnFailed tidak perlu diubah, tetap sama
         dataLoaderTask.setOnSucceeded(event -> {
             Map<String, Object> data = dataLoaderTask.getValue();
             if (data != null) {
@@ -146,4 +148,5 @@ public class DashboardController {
             e.printStackTrace();
         }
     }
+
 }

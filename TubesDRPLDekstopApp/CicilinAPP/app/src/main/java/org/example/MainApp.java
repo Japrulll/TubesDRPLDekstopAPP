@@ -17,6 +17,7 @@ public class MainApp extends Application {
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
+    
     public void loginScene(Stage loginStage) throws Exception {
         loginStage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/loginAja.fxml"));
@@ -25,6 +26,7 @@ public class MainApp extends Application {
         loginStage.setScene(new Scene(root, 600, 400));
         loginStage.show();
     }
+    
     public static void main(String[] args) {
         launch(args);
     }
