@@ -3,9 +3,14 @@ package org.example;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.application.Platform;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,135 +23,118 @@ import java.util.Locale;
 import java.util.Map;
 
 public class DashboardController {
+
+    private String currentUserEmail;
+
+    @FXML
+    private VBox notificationBox;
     @FXML
     private Label notificationAmountLabel;
     @FXML
-    private Label notificationExpiredLabel;
-    @FXML
-    public Button logoutButton;
-    @FXML
-    private Button pembayaranButton;
-    @FXML
-    private String currentUserEmail;
+    private Label notificationDueDateLabel;
 
+    // Method ini menjadi pintu masuk untuk memuat data di halaman ini
     public void setCurrentUser(String email) {
         this.currentUserEmail = email;
         System.out.println("Dashboard for user: " + this.currentUserEmail);
-        loadNotificationData();
+        loadUpcomingDueDate(); // Panggil method untuk memuat data notifikasi
     }
 
-    private void loadNotificationData() {
-        notificationAmountLabel.setText("Loading...");
-        notificationExpiredLabel.setText("Please wait...");
+    // Method untuk memuat data notifikasi dari database
+    private void loadUpcomingDueDate() {
+        notificationBox.setVisible(false);
+        notificationBox.setManaged(false);
 
-        Task<Map<String, Object>> dataLoaderTask = new Task<>() {
+        Task<Map<String, Object>> task = new Task<>() {
             @Override
             protected Map<String, Object> call() throws Exception {
-                DatabaseConnection connectNow = new DatabaseConnection();
-                Integer userId = null;
+                String sql = "SELECT c.jumlah, c.tenggat_waktu " +
+                             "FROM \"Cicilan\" c " +
+                             "JOIN \"Pinjaman\" p ON c.id_pinjaman = p.id_pinjaman " +
+                             "JOIN \"User\" u ON p.id_user = u.id_user " +
+                             "WHERE u.email = ? AND c.status_cicilan = false " +
+                             "ORDER BY c.tenggat_waktu ASC LIMIT 1";
 
-                // LANGKAH 1: Cari id_user berdasarkan email user yang login
-                String findIdSql = "SELECT id_user FROM \"User\" WHERE email = ?";
-                try (
-                    Connection conn = connectNow.getConnection();
-                    PreparedStatement ps = conn.prepareStatement(findIdSql)
-                ) {
+                DatabaseConnection db = new DatabaseConnection();
+                try (Connection conn = db.getConnection();
+                     PreparedStatement ps = conn.prepareStatement(sql)) {
+
                     ps.setString(1, currentUserEmail);
                     ResultSet rs = ps.executeQuery();
+
                     if (rs.next()) {
-                        userId = rs.getInt("id_user");
-                    }
-                    rs.close();
-                }
-
-                // LANGKAH 2: Jika user ditemukan, ambil cicilan milik user tsb lewat join ke Pinjaman
-                if (userId != null) {
-                    String cicilanSql =
-                        "SELECT c.jumlah, c.tenggat_waktu " +
-                        "FROM \"Cicilan\" c " +
-                        "JOIN \"Pinjaman\" p ON c.id_pinjaman = p.id_pinjaman " +
-                        "WHERE p.id_user = ? AND c.status_cicilan = false " +
-                        "ORDER BY c.tenggat_waktu ASC LIMIT 1";
-                    try (
-                        Connection conn = connectNow.getConnection();
-                        PreparedStatement ps = conn.prepareStatement(cicilanSql)
-                    ) {
-                        ps.setInt(1, userId);
-                        ResultSet rs = ps.executeQuery();
-                        if (rs.next()) {
-                            BigDecimal amount = rs.getBigDecimal("jumlah");
-                            LocalDate dueDate = rs.getDate("tenggat_waktu").toLocalDate();
-
-                            Map<String, Object> result = new HashMap<>();
-                            result.put("amount", amount);
-                            result.put("dueDate", dueDate);
-                            rs.close();
-                            return result;
-                        }
-                        rs.close();
+                        Map<String, Object> result = new HashMap<>();
+                        result.put("amount", rs.getBigDecimal("jumlah"));
+                        result.put("dueDate", rs.getDate("tenggat_waktu").toLocalDate());
+                        return result;
                     }
                 }
                 return null;
             }
         };
 
-        dataLoaderTask.setOnSucceeded(event -> {
-            Map<String, Object> data = dataLoaderTask.getValue();
-            if (data != null) {
-                BigDecimal amount = (BigDecimal) data.get("amount");
-                LocalDate dueDate = (LocalDate) data.get("dueDate");
+        task.setOnSucceeded(e -> {
+            Map<String, Object> result = task.getValue();
+            if (result != null) {
+                BigDecimal amount = (BigDecimal) result.get("amount");
+                LocalDate dueDate = (LocalDate) result.get("dueDate");
 
                 Locale indonesia = new Locale("id", "ID");
-                NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(indonesia);
+                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(indonesia);
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMMM uuuu", indonesia);
 
-                Platform.runLater(() -> {
-                    notificationAmountLabel.setText(rupiahFormat.format(amount));
-                    notificationExpiredLabel.setText(dateFormat.format(dueDate));
-                });
-            } else {
-                Platform.runLater(() -> {
-                    notificationAmountLabel.setText("Rp 0");
-                    notificationExpiredLabel.setText("Tidak ada tagihan aktif");
-                });
+                notificationAmountLabel.setText(formatRupiah.format(amount));
+                notificationDueDateLabel.setText(dateFormat.format(dueDate));
+
+                notificationBox.setVisible(true);
+                notificationBox.setManaged(true);
             }
         });
 
-        dataLoaderTask.setOnFailed(event -> {
-            dataLoaderTask.getException().printStackTrace();
-            Platform.runLater(() -> {
-                notificationAmountLabel.setText("Error");
-                notificationExpiredLabel.setText("Gagal memuat data");
-            });
+        task.setOnFailed(e -> {
+            notificationAmountLabel.setText("Gagal memuat data");
+            notificationDueDateLabel.setText("");
+            notificationBox.setVisible(true);
+            notificationBox.setManaged(true);
         });
 
-        new Thread(dataLoaderTask).start();
+        new Thread(task).start();
     }
-    @FXML
-    public void handleLogOut(ActionEvent event) {   
-        try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/loginAja.fxml"));
-            javafx.scene.Parent root = loader.load();
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 600, 400));
-            stage.setTitle("CICILIN - Logout");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+    // --- Navigasi ---
+    private void switchScene(String fxmlFile, ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+        Parent root = loader.load();
+
+        if (fxmlFile.equals("/pembayaran.fxml")) {
+            PembayaranController controller = loader.getController();
+            controller.setCurrentUser(this.currentUserEmail);
         }
+        
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
+
     @FXML
-    public void handlePembayaran(ActionEvent event) {
+    void handlePembayaran(ActionEvent event) {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/pembayaran.fxml"));
-            javafx.scene.Parent root = loader.load();
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 600, 400));
-            stage.setTitle("CICILIN - Login");
-            stage.show();
+            switchScene("/pembayaran.fxml", event);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
+    void handleLogOut(ActionEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginAja.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,86 +12,44 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.StatusPembayaranController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #9FC7EF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.StatusPembayaranController">
    <children>
-      <AnchorPane layoutX="45.0" layoutY="42.0" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="60.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_RIGHT" layoutX="271.0" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="309.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="60.0" spacing="15.0" AnchorPane.rightAnchor="20.0">
                <children>
                   <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Manager" />
-                  <Button fx:id="pembayaranButton" mnemonicParsing="false" onAction="#handlePembayaran" style="-fx-background-color: transparent;" text="Pembayaran" />
+                  <Button onAction="#handlePembayaran" style="-fx-background-color: transparent;" text="Pembayaran" />
                   <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Admin" />
-                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogOut" style="-fx-background-color: black;" text="Logout" textFill="WHITE" />
+                  <Button onAction="#handleLogOut" style="-fx-background-color: black;" text="Logout" textFill="WHITE" />
                </children>
             </HBox>
-            <ImageView fx:id="logoCicilin" fitHeight="48.0" fitWidth="146.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#handleDashboard" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="48.0" fitWidth="146.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#handleDashboard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logoImage.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9FC7EF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <VBox layoutY="60.0" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label layoutX="20.0" layoutY="14.0" prefWidth="187.0" text="Status Pembayaran" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="14.0">
+            <Label text="Status Pembayaran">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Inter" size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Label>
-            <VBox layoutX="20.0" layoutY="76.0" prefHeight="250.0" prefWidth="550.0" spacing="15.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="76.0">
-               <children>
-                  <HBox prefHeight="50.0" prefWidth="550.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan I">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold Italic" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="amountCicilan1" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
-                        <Label fx:id="dueDateCicilan1" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox prefHeight="50.0" prefWidth="550.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan II">
-                           <font>
-                              <Font name="System Bold Italic" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="amountCicilan2" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
-                        <Label fx:id="dueDateCicilan2" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="50.0" prefWidth="550.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan III">
-                           <font>
-                              <Font name="System Bold Italic" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="amountCicilan3" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
-                        <Label fx:id="dueDateCicilan3" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="50.0" prefWidth="550.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Cicilan IV">
-                           <font>
-                              <Font name="System Bold Italic" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="amountCicilan4" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="Rp 1.000.000,00" textAlignment="CENTER" />
-                        <Label fx:id="dueDateCicilan4" alignment="CENTER" prefHeight="50.0" prefWidth="193.0" text="2025-06-29" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-               </children></VBox>
+            <TableView fx:id="statusTableView" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="cicilanColumn" prefWidth="150.0" text="Cicilan" />
+                <TableColumn fx:id="jumlahColumn" prefWidth="250.0" text="Jumlah" />
+                <TableColumn fx:id="jatuhTempoColumn" prefWidth="200.0" text="Jatuh Tempo" />
+                  <TableColumn fx:id="statusColumn" prefWidth="150.0" text="Status" />
+              </columns>
+            </TableView>
          </children>
-      </AnchorPane>
+      </VBox>
    </children>
 </AnchorPane>
