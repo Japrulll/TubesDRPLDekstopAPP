@@ -16,7 +16,7 @@ public class PembayaranController {
     @FXML
     public void handleLogOut(ActionEvent event) {   
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginAja.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
