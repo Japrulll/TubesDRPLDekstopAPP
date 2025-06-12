@@ -1,31 +1,30 @@
 package org.example;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.text.NumberFormat;
+import java.util.Locale;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.NumberFormat;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class PembayaranCicilanController {
-
     @FXML
     private Label cicilanAmountLabel;
     @FXML
@@ -38,21 +37,115 @@ public class PembayaranCicilanController {
     private Label paymentMessageLabel;
 
     private String currentUserEmail;
+    private Integer currentUserId;
     private Integer currentCicilanId;
     private BigDecimal currentCicilanAmount;
 
     public void setCurrentUser(String email) {
         this.currentUserEmail = email;
-        System.out.println("Halaman Bayar Cicilan untuk user: " + this.currentUserEmail);
+        System.out.println("Pembayaran Cicilan for user: " + this.currentUserEmail);
         loadCicilanData();
     }
 
-    // Kode ini sudah baik, tidak perlu diubah
     private void loadCicilanData() {
-        // ... (seluruh isi method loadCicilanData dari file yang Anda berikan sudah benar)
+        cicilanAmountLabel.setText("Memuat...");
+        cicilanDueDateLabel.setText("Mohon tunggu...");
+        paymentMessageLabel.setText("");
+
+        Task<Map<String, Object>> dataLoaderTask = new Task<>() {
+            @Override
+            protected Map<String, Object> call() throws Exception {
+                DatabaseConnection connectNow = new DatabaseConnection();
+                Connection conn = null;
+                PreparedStatement ps = null;
+                ResultSet rs = null;
+
+                try {
+                    conn = connectNow.getConnection();
+
+                    // LANGKAH 1: Cari id_user berdasarkan email user yang login
+                    String findIdSql = "SELECT id_user FROM \"User\" WHERE email = ?";
+                    ps = conn.prepareStatement(findIdSql);
+                    ps.setString(1, currentUserEmail);
+                    rs = ps.executeQuery();
+                    if (rs.next()) {
+                        currentUserId = rs.getInt("id_user");
+                    }
+                    rs.close();
+                    ps.close();
+
+                    // LANGKAH 2: Jika user ditemukan, ambil cicilan terdekat yang belum lunas
+                    if (currentUserId != null) {
+                        String cicilanSql =
+                            "SELECT c.id_cicilan, c.jumlah, c.tenggat_waktu " +
+                            "FROM \"Cicilan\" c " +
+                            "JOIN \"Pinjaman\" p ON c.id_pinjaman = p.id_pinjaman " +
+                            "WHERE p.id_user = ? AND c.status_cicilan = false " +
+                            "ORDER BY c.tenggat_waktu ASC LIMIT 4";
+                        ps = conn.prepareStatement(cicilanSql);
+                        ps.setInt(1, currentUserId);
+                        rs = ps.executeQuery();
+                        if (rs.next()) {
+                            currentCicilanId = rs.getInt("id_cicilan");
+                            currentCicilanAmount = rs.getBigDecimal("jumlah");
+                            LocalDate dueDate = rs.getDate("tenggat_waktu").toLocalDate();
+
+                            Map<String, Object> result = new HashMap<>();
+                            result.put("id_cicilan", currentCicilanId);
+                            result.put("amount", currentCicilanAmount);
+                            result.put("dueDate", dueDate);
+                            // rs.close(); // Pindahkan rs.close() ke finally
+                            // ps.close(); // Pindahkan ps.close() ke finally
+                            return result;
+                        }
+                    }
+                } finally {
+                    if (rs != null) rs.close();
+                    if (ps != null) ps.close();
+                    if (conn != null) conn.close();
+                }
+                return null;
+            }
+        };
+
+        dataLoaderTask.setOnSucceeded(event -> {
+            Map<String, Object> data = dataLoaderTask.getValue();
+            if (data != null) {
+                BigDecimal amount = (BigDecimal) data.get("amount");
+                LocalDate dueDate = (LocalDate) data.get("dueDate");
+
+                Locale indonesia = new Locale("id", "ID");
+                NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(indonesia);
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMMM uuuu", indonesia);
+
+                Platform.runLater(() -> {
+                    cicilanAmountLabel.setText(rupiahFormat.format(amount));
+                    cicilanDueDateLabel.setText(dateFormat.format(dueDate));
+                    confirmPaymentButton.setDisable(false);
+                });
+            } else {
+                Platform.runLater(() -> {
+                    cicilanAmountLabel.setText("Rp 0");
+                    cicilanDueDateLabel.setText("Tidak ada tagihan aktif");
+                    paymentMessageLabel.setText("Tidak ada cicilan yang perlu dibayar.");
+                    confirmPaymentButton.setDisable(true);
+                });
+            }
+        });
+
+        dataLoaderTask.setOnFailed(event -> {
+            dataLoaderTask.getException().printStackTrace();
+            Platform.runLater(() -> {
+                paymentMessageLabel.setText("Gagal memuat data cicilan.");
+                cicilanAmountLabel.setText("Error");
+                cicilanDueDateLabel.setText("Error");
+                confirmPaymentButton.setDisable(true);
+            });
+        });
+
+        new Thread(dataLoaderTask).start();
     }
 
-    // --- PERBAIKAN UTAMA ADA DI METHOD INI ---
     @FXML
     private void handleConfirmPayment(ActionEvent event) {
         if (currentCicilanId == null || currentCicilanAmount == null) {
@@ -95,11 +188,7 @@ public class PembayaranCicilanController {
             if (paymentTask.getValue()) {
                 Platform.runLater(() -> {
                     paymentMessageLabel.setText("Pembayaran berhasil!");
-                    // PENTING: Panggil ini untuk memuat ulang data di halaman ini
-                    // agar menampilkan cicilan berikutnya atau pesan "Tidak ada tagihan"
                     loadCicilanData();
-                    // Kosongkan field input setelah berhasil
-                    paymentAmountField.clear();
                 });
             } else {
                 Platform.runLater(() -> {
@@ -120,56 +209,50 @@ public class PembayaranCicilanController {
         new Thread(paymentTask).start();
     }
 
-    // --- Bagian Navigasi ---
-    // Pastikan navigasi di sini juga meneruskan data user
-    private void switchSceneAndPassUser(String fxmlFile, ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-        Parent root = loader.load();
-
-        if (fxmlFile.equals("/dashboard.fxml")) {
-            DashboardController controller = loader.getController();
-            controller.setCurrentUser(this.currentUserEmail);
-        } else if (fxmlFile.equals("/pembayaran.fxml")) {
-            PembayaranController controller = loader.getController();
-            controller.setCurrentUser(this.currentUserEmail);
-        }
-        
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
     @FXML
     public void handleLogOut(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginAja.fxml"));
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(loader.load()));
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/loginAja.fxml"));
+            javafx.scene.Parent root = loader.load();
+            // Perbaikan: Hapus tanda kurung tutup ')' yang berlebihan
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 600, 400));
+            stage.setTitle("CICILIN - Logout");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
     @FXML
     public void handlePembayaran(ActionEvent event) {
         try {
-            switchSceneAndPassUser("/pembayaran.fxml", event);
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/pembayaran.fxml"));
+            javafx.scene.Parent root = loader.load();
+            // Penting: Teruskan user email jika PembayaranController membutuhkannya
+            PembayaranController pembayaranController = loader.getController();
+            pembayaranController.setCurrentUser(this.currentUserEmail);
+
+            // Perbaikan: Hapus tanda kurung tutup ')' yang berlebihan
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 600, 400));
+            stage.setTitle("CICILIN - Pembayaran");
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void handleDashboard(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
             Parent root = loader.load();
-            DashboardController controller = loader.getController();
-            controller.setCurrentUser(this.currentUserEmail);
+            // Penting: Teruskan user email ke DashboardController
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setCurrentUser(this.currentUserEmail);
 
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setTitle("CICILIN");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

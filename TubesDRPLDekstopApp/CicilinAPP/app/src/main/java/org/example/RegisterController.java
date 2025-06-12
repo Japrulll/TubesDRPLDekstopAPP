@@ -30,7 +30,7 @@ public class RegisterController {
     @FXML
     private void handleLogin(ActionEvent e) throws Exception {
         Stage stage = (Stage)((javafx.scene.Node)e.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/loginAja.fxml"));
         stage.setScene(new Scene(root, 600, 400));
         stage.setTitle("CICILIN");
         stage.show();
@@ -70,4 +70,5 @@ public class RegisterController {
             registerMessageLabel.setText(" Registration failed: " + e.getMessage());
         }
     }
+
 }

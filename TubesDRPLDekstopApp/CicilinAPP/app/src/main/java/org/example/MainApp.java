@@ -20,7 +20,7 @@ public class MainApp extends Application {
     
     public void loginScene(Stage loginStage) throws Exception {
         loginStage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/loginAja.fxml"));
         loginStage.initStyle(StageStyle.UNDECORATED);
         loginStage.setTitle("CICILIN");
         loginStage.setScene(new Scene(root, 600, 400));
