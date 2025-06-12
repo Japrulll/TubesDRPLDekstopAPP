@@ -2,6 +2,10 @@ package org.example;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class PembayaranCicilanController {
     @FXML
@@ -25,6 +29,19 @@ public class PembayaranCicilanController {
             javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root, 600, 400));
             stage.setTitle("CICILIN - Login");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleDashboard(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setTitle("CICILIN");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

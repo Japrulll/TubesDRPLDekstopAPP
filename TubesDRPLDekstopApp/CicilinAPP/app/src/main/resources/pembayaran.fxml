@@ -12,13 +12,12 @@
    <children>
       <AnchorPane layoutX="45.0" layoutY="42.0" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox layoutY="-15.0" prefHeight="100.0" prefWidth="200.0" />
-            <ImageView fitHeight="100.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+            <ImageView fx:id="logoCicilin" fitHeight="48.0" fitWidth="146.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#handleDashboard" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="455.6470642089844" AnchorPane.topAnchor="6.0">
                <image>
-                  <Image url="@../Pictures/Screenshots/Screenshot%202025-06-08%20193240.png" />
+                  <Image url="@images/logoImage.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER_RIGHT" layoutX="185.0" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_RIGHT" layoutX="253.0" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="327.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Manager" />
                   <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Pembayaran" />
@@ -30,7 +29,7 @@
       </AnchorPane>
       <AnchorPane layoutX="-80.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label layoutX="31.0" layoutY="30.0" text="Pembayaran" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="30.0">
+            <Label layoutX="24.0" layoutY="14.0" text="Pembayaran" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

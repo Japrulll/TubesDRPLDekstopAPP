@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -15,10 +16,10 @@ public class PembayaranController {
     @FXML
     public void handleLogOut(ActionEvent event) {   
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/loginAja.fxml"));
-            javafx.scene.Parent root = loader.load();
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 600, 400));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginAja.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("CICILIN - Logout");
             stage.show();
         } catch (Exception e) {
@@ -28,10 +29,10 @@ public class PembayaranController {
     @FXML
     private void goToPembayaranCicilan(ActionEvent event) {
         try {
-            FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/pembayaranCicilan.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pembayaranCicilan.fxml"));
             Parent root = loader.load();
-            Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 600, 400));
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("CICILIN - Pembayaran Cicilan");
             stage.show();
         } catch (Exception e) {
@@ -41,15 +42,28 @@ public class PembayaranController {
     @FXML
     private void goToStatusPembayaran(ActionEvent event) {
         try {
-            FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/statusPembayaran.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/statusPembayaran.fxml"));
             Parent root = loader.load();
-            Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 600, 400));
-            stage.setTitle("CICILIN - Pembayaran Cicilan");
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setTitle("CICILIN - Status Pembayaran");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+    @FXML
+    private void handleDashboard(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setTitle("CICILIN");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+   
 }

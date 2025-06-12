@@ -1,7 +1,27 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Java build files
+*.class
+*.jar
+*.war
+*.ear
 
-# Ignore Gradle build output directory
-build
+# Build output folders (e.g. Maven, Gradle, IDEs)
+bin/
+out/
+build/
+target/
 
-.env
+# IDE-specific folders
+.vscode/
+.idea/
+*.iml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Supaya folder hasil compile dari project-mu tidak di-track
+TubesDRPLDekstopApp/CicilinAPP/app/bin/

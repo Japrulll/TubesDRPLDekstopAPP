@@ -29,7 +29,7 @@
          </effect>
       </Rectangle>
       <Button fx:id="registerButton" layoutX="212.0" layoutY="300.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-radius: 10;" text="Register" />
-      <ImageView fitHeight="56.0" fitWidth="143.0" layoutX="236.0" layoutY="71.0">
+      <ImageView fitHeight="56.0" fitWidth="143.0" layoutX="229.0" layoutY="84.0">
          <image>
             <Image url="@images/logoImage.png" />
          </image>

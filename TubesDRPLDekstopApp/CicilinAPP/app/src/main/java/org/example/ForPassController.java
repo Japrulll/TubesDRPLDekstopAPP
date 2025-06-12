@@ -101,6 +101,7 @@ public class ForPassController {
             loginMessageLabel.setText("Database error occurred.");
         }
     }
+    
     public void registerUser(String notelp, String email, String fullname, String password) {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
