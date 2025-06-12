@@ -25,6 +25,7 @@ public class LoginController {
     private Label loginMessageLabel;
     @FXML
     private Button loginButton;
+
     @FXML
     public void loginButtonOnAction(ActionEvent e) {
         if (emailTextField.getText().isBlank() || passwordPasswordField.getText().isBlank()) {
@@ -39,7 +40,8 @@ public class LoginController {
             protected String call() throws Exception {
                 DatabaseConnection connectNow = new DatabaseConnection();
                 // PERHATIAN: Query ini membandingkan password teks polos (tidak aman)
-                String sql = "SELECT id FROM \"User\" WHERE email = ? AND password = ?";
+                // Seharusnya menggunakan hashing untuk password
+                String sql = "SELECT email FROM \"User\" WHERE email = ? AND password = ?"; // Ambil email, bukan id
 
                 try (Connection connectDB = connectNow.getConnection();
                      PreparedStatement preparedStatement = connectDB.prepareStatement(sql)) {
@@ -50,7 +52,7 @@ public class LoginController {
                     try (ResultSet resultSet = preparedStatement.executeQuery()) {
                         if (resultSet.next()) {
                             // Jika query menghasilkan baris, berarti email dan password cocok
-                            return resultSet.getString("id"); // Berhasil, kembalikan User ID
+                            return resultSet.getString("email"); // Berhasil, kembalikan email
                         }
                     }
                 }
@@ -60,9 +62,9 @@ public class LoginController {
         };
 
         loginTask.setOnSucceeded(event -> {
-            String userId = loginTask.getValue();
-            if (userId != null) {
-                navigateToDashboard(userId);
+            String userEmail = loginTask.getValue(); // Ganti userId menjadi userEmail
+            if (userEmail != null) {
+                navigateToDashboard(userEmail); // Teruskan email
             } else {
                 loginMessageLabel.setText("Invalid email or password!");
             }
@@ -76,12 +78,12 @@ public class LoginController {
         new Thread(loginTask).start();
     }
 
-    private void navigateToDashboard(String userId) {
+    private void navigateToDashboard(String userEmail) { // Ganti userId menjadi userEmail
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
             Parent dashboardRoot = loader.load();
             DashboardController dashboardController = loader.getController();
-            dashboardController.setCurrentUser(userId);
+            dashboardController.setCurrentUser(userEmail); // Teruskan email
 
             Stage stage = (Stage) loginMessageLabel.getScene().getWindow();
             stage.setScene(new Scene(dashboardRoot));

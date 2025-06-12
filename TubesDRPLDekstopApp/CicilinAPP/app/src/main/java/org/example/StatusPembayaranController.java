@@ -7,7 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class StatusPembayaranController {
+    private String currentUserEmail;
+
     @FXML
     public void handleLogOut(ActionEvent event) {   
         try {
@@ -46,5 +49,11 @@ public class StatusPembayaranController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCurrentUser(String email) {
+        this.currentUserEmail = email;
+        // You can add other code here if needed, for example:
+        System.out.println("User has been set to: " + email);
     }
 }

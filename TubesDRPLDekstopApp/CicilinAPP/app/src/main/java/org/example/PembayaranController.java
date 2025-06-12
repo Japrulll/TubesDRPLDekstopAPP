@@ -13,6 +13,16 @@ public class PembayaranController {
     private Button bayarCicilanButton;
     @FXML
     private Button statusPembayaranButton;
+
+    private String currentUserEmail; // Tambahkan ini
+
+    // Metode untuk menerima email dari controller sebelumnya (e.g., DashboardController)
+    public void setCurrentUser(String email) {
+        this.currentUserEmail = email;
+        // Optionally, add code here to refresh the view with the user's data
+        System.out.println("Current user set in StatusPembayaranController: " + this.currentUserEmail);
+    }
+
     @FXML
     public void handleLogOut(ActionEvent event) {   
         try {
@@ -31,6 +41,9 @@ public class PembayaranController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pembayaranCicilan.fxml"));
             Parent root = loader.load();
+            PembayaranCicilanController pembayaranCicilanController = loader.getController(); // Dapatkan controller
+            pembayaranCicilanController.setCurrentUser(this.currentUserEmail); // Teruskan email
+
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("CICILIN - Pembayaran Cicilan");
@@ -44,6 +57,9 @@ public class PembayaranController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/statusPembayaran.fxml"));
             Parent root = loader.load();
+            StatusPembayaranController statusPembayaranController = loader.getController(); // Dapatkan controller
+            statusPembayaranController.setCurrentUser(this.currentUserEmail); // Teruskan email ke StatusPembayaranController juga jika diperlukan
+
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("CICILIN - Status Pembayaran");
@@ -57,6 +73,9 @@ public class PembayaranController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
             Parent root = loader.load();
+            DashboardController dashboardController = loader.getController(); // Dapatkan controller
+            dashboardController.setCurrentUser(this.currentUserEmail); // Teruskan email
+
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("CICILIN");
@@ -65,5 +84,4 @@ public class PembayaranController {
             e.printStackTrace();
         }
     }
-   
 }
