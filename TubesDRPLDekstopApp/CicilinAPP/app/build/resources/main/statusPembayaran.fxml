@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9FC7EF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.StatusPembayaranController">
+    <children>
+        <!-- Header Navigation -->
+        <AnchorPane prefHeight="60.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_RIGHT" prefHeight="60.0" spacing="15.0" AnchorPane.rightAnchor="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-font-size: 14px;" text="Manager" />
+                        <Button fx:id="pembayaranButton" mnemonicParsing="false" onAction="#handlePembayaran" style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-font-size: 14px; -fx-font-weight: bold;" text="Pembayaran" />
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-font-size: 14px;" text="Admin" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogOut" style="-fx-background-color: #333333; -fx-background-radius: 5; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16;" text="Logout" />
+                    </children>
+                </HBox>
+                <ImageView fx:id="logoCicilin" fitHeight="48.0" fitWidth="146.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#handleDashboard" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logoImage.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+
+        <!-- Main Content Area -->
+        <VBox layoutX="20.0" layoutY="80.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <children>
+                <!-- Page Title -->
+                <Label style="-fx-text-fill: #333333;" text="Status Pembayaran">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <!-- Status Card -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <!-- Header Row -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Total cicilan" style="-fx-text-fill: #666666;">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="totalCicilanLabel" text="Rp 15.123.975" style="-fx-text-fill: #333333;">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <Label text="Harus dibayarkan" style="-fx-text-fill: #666666;">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <!-- Separator Line -->
+                        <VBox prefHeight="1.0" style="-fx-background-color: #E0E0E0;">
+                            <VBox.margin>
+                                <Insets bottom="15.0" top="15.0" />
+                            </VBox.margin>
+                        </VBox>
+
+                        <!-- Cicilan List Header -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="80.0" text="Rincian" style="-fx-text-fill: #666666;">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Label>
+                                <Label prefWidth="120.0" text="" style="-fx-text-fill: #666666;">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Label>
+                                <Label prefWidth="100.0" text="" style="-fx-text-fill: #666666;">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Label>
+                                <Label prefWidth="100.0" text="Tenggat Waktu" style="-fx-text-fill: #666666;">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <!-- Dynamic Cicilan List -->
+                        <VBox fx:id="cicilanListVBox" spacing="8.0">
+                            <padding>
+                                <Insets top="10.0" />
+                            </padding>
+                            <!-- Content will be populated dynamically -->
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9FC7EF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DashboardController">
+    <children>
+        <!-- Header Navigation -->
+        <AnchorPane prefHeight="60.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_RIGHT" prefHeight="60.0" spacing="15.0" AnchorPane.rightAnchor="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-font-size: 14px;" text="Manager" />
+                        <Button fx:id="pembayaranButton" mnemonicParsing="false" onAction="#handlePembayaran" style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-font-size: 14px;" text="Pembayaran" />
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-font-size: 14px;" text="Admin" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogOut" style="-fx-background-color: #333333; -fx-background-radius: 5; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16;" text="Logout" />
+                    </children>
+                </HBox>
+                <ImageView fx:id="logoCicilin" fitHeight="48.0" fitWidth="146.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logoImage.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+
+        <!-- Main Content Area -->
+        <VBox layoutX="20.0" layoutY="80.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <children>
+                <!-- Dashboard Title -->
+                <Label style="-fx-text-fill: #333333;" text="Dashboard Nasabah">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <!-- Info Card: Apa itu CICILIN? -->
+                <VBox prefHeight="140.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                    </padding>
+                    <children>
+                        <Label text="Apa itu CICILIN?" style="-fx-text-fill: #333333;">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label prefWidth="600.0" text="CICILIN (Cerdas Kelola Cicilan Leasing Indonesia) adalah aplikasi web yang dirancang untuk membantu PT Mitra Leasing dalam mengelola piutang dan cicilan pelanggan secara terpusat dan real-time. Dengan sistem basis data yang terintegrasi dan berbagai fitur lengkap seperti Dashboard real-time untuk melihat status pembayaran terkini, Notifikasi keterlambatan pembayaran, Akses admin per cabang, serta Laporan piutang yang lebih cepat &amp; efisien. CICILIN hadir untuk mengoptimalkan efisiensi operasional dan meningkatkan strategi manajemen resiko kredit di seluruh cabang PT Mitra Leasing." textAlignment="JUSTIFY" wrapText="true" style="-fx-text-fill: #666666; -fx-line-spacing: 1px;">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                            <padding>
+                                <Insets top="8.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <!-- Notification Card -->
+                <VBox fx:id="notificationBox" prefHeight="120.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <Label text="Notifikasi Jatuh Tempo" style="-fx-text-fill: #333333;">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <!-- Notification Content Container -->
+                        <VBox alignment="CENTER" prefHeight="60.0" spacing="8.0">
+                            <padding>
+                                <Insets top="15.0" />
+                            </padding>
+                            <children>
+                                <!-- Amount Label -->
+                                <Label fx:id="notificationAmountLabel" text="Memuat..." style="-fx-text-fill: #333333;">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <!-- Date Label -->
+                                <Label fx:id="notificationDueDateLabel" text="Memuat..." style="-fx-text-fill: #666666;">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

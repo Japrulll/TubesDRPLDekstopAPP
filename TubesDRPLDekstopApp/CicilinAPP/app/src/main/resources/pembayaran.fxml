@@ -27,23 +27,23 @@
             </children>
         </AnchorPane>
 
-        <AnchorPane layoutY="60.0" prefHeight="340.0" prefWidth="600.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+        <AnchorPane layoutY="60.0" prefHeight="340.0" prefWidth="600.0" style="-fx-background-color: #9FC7EF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
             <children>
                 <Label layoutX="24.0" layoutY="14.0" text="Pembayaran">
                     <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="Inter" size="20.0" />
                     </font>
                 </Label>
                 <HBox alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="200.0" prefWidth="600.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
                     <children>
                         <Button fx:id="statusPembayaranButton" mnemonicParsing="false" onAction="#goToStatusPembayaran" prefHeight="50.0" prefWidth="151.0" style="-fx-border-image-insets: 0; -fx-border-color: #eee; -fx-background-color: #f0f0f0;" text="Status Pembayaran">
                             <font>
-                                <Font name="System Bold Italic" size="14.0" />
+                                <Font name="Inter" size="14.0" />
                             </font>
                         </Button>
                         <Button fx:id="bayarCicilanButton" mnemonicParsing="false" onAction="#goToPembayaranCicilan" prefHeight="50.0" prefWidth="151.0" style="-fx-background-insets: 0; -fx-border-color: #eee; -fx-background-color: #f0f0f0;" text="Bayar Cicilan">
                             <font>
-                                <Font name="System Bold Italic" size="14.0" />
+                                <Font name="Inter" size="14.0" />
                             </font>
                         </Button>
                     </children>

@@ -36,7 +36,7 @@
                 <!-- Page Title -->
                 <Label style="-fx-text-fill: #333333;" text="Bayar Cicilan">
                     <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Inter" size="24.0" />
                     </font>
                 </Label>
 
@@ -61,7 +61,7 @@
                                                 </Label>
                                                 <Label fx:id="totalCicilanLabel" text="Rp 15.123.975" style="-fx-text-fill: #333333;">
                                                     <font>
-                                                        <Font name="System Bold" size="14.0" />
+                                                        <Font name="Inter" size="14.0" />
                                                     </font>
                                                 </Label>
                                             </children>
@@ -115,12 +115,12 @@
                                     <children>
                                         <Label text="Jumlah yang dibayarkan" style="-fx-text-fill: #333333;">
                                             <font>
-                                                <Font name="System Bold" size="14.0" />
+                                                <Font name="Inter" size="14.0" />
                                             </font>
                                         </Label>
                                         <Label fx:id="selectedAmountLabel" text="Rp 5.041.325" style="-fx-text-fill: #333333;">
                                             <font>
-                                                <Font name="System Bold" size="16.0" />
+                                                <Font name="Inter" size="16.0" />
                                             </font>
                                         </Label>
                                     </children>
@@ -177,7 +177,7 @@
                                         </Label>
                                         <Label fx:id="successAmountLabel" text="Rp 5.041.325" style="-fx-text-fill: #333333;">
                                             <font>
-                                                <Font name="System Bold" size="16.0" />
+                                                <Font name="Inter" size="16.0" />
                                             </font>
                                         </Label>
                                     </children>

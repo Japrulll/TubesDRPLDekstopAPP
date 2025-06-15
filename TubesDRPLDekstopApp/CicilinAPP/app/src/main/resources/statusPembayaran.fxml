@@ -35,7 +35,7 @@
                 <!-- Page Title -->
                 <Label style="-fx-text-fill: #333333;" text="Status Pembayaran">
                     <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Inter" size="24.0" />
                     </font>
                 </Label>
 
@@ -57,7 +57,7 @@
                                         </Label>
                                         <Label fx:id="totalCicilanLabel" text="Rp 15.123.975" style="-fx-text-fill: #333333;">
                                             <font>
-                                                <Font name="System Bold" size="14.0" />
+                                                <Font name="Inter" size="14.0" />
                                             </font>
                                         </Label>
                                     </children>
